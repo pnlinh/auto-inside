@@ -27,14 +27,26 @@ async function start(url) {
     console.log(response);
 
     // Checkin
-    await page.click('#imgcheckin', {delay: 200});
+    try {
+        await page.click('#imgcheckin', {delay: 200});
+    } catch (err) {
+        console.error(err);
+
+        await closeBrowser(browser.close(), 5000);
+    }
 
     // Log out
     //await page.click('#ctl00_LinkButton1', {delay: 200});
 
-    setTimeout(() => {
-        browser.close();
-    }, 1000);
+    await closeBrowser(browser.close());
+}
+
+function closeBrowser(callback, timer = 1000) {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            return resolve(callback);
+        }, timer);
+    });
 }
 
 try {
