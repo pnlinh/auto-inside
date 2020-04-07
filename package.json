@@ -1,9 +1,10 @@
 {
   "dependencies": {
+    "dotenv": "^8.2.0",
     "puppeteer": "^2.1.1"
   },
   "scripts": {
-	"inside": "node index.js",
-	"test": "node test.js" 
+    "inside": "node index.js",
+    "test": "node test.js"
   }
 }
