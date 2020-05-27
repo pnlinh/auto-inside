@@ -34,7 +34,7 @@ async function start(url) {
 
     // Checkin
     try {
-		await page.$eval('#imgcheckin', elem => elem.click());
+	await page.$eval('#imgcheckin', elem => elem.click());
 
         console.log('Checkin OK');
         fs.appendFileSync('logs.txt', `Checkin OK at: ${new Date} \r`);
