@@ -16,15 +16,16 @@ async function start(url) {
     await page.setViewport({width: 1366, height: 768});
 
     await page.goto(url, {
-        waitUntil: 'networkidle0'
+        waitUntil: 'load',
+		timeout: 0
     });
 
     await page.type('#ctl00_ContentPlaceHolder1_ctl00_txtUserName', account.username, {delay: 100});
     await page.type('#ctl00_ContentPlaceHolder1_ctl00_txtPassword', account.password, {delay: 100});
 
     const [response] = await Promise.all([
-        page.click('#ctl00_ContentPlaceHolder1_ctl00_btnLogin', {delay: 100}),
-        page.waitForNavigation({waitUntil: 'networkidle0'}),
+        page.click('#ctl00_ContentPlaceHolder1_ctl00_btnLogin', {delay: 1000}),
+        page.waitForNavigation({waitUntil: 'load'}),
     ]);
 
     console.log('Login successfully');
@@ -33,7 +34,7 @@ async function start(url) {
 
     // Checkin
     try {
-        await page.click('#imgcheckin', {delay: 200});
+		await page.$eval('#imgcheckin', elem => elem.click());
 
         console.log('Checkin OK');
         fs.appendFileSync('logs.txt', `Checkin OK at: ${new Date} \r`);
